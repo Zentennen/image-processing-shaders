@@ -1,0 +1,15 @@
+#version 330
+
+vec4 applyKernel(mat3 kernel, sampler2D sampler, vec2 resolution, vec2 texcoord) {
+   vec4 color = vec4(0.0f, 0.0f, 0.0f, 0.0f);
+   vec2 pixel = 1.0f / resolution;
+
+   for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+	     vec2 offset = vec2(pixel.x * (i - 1), pixel.y * (j - 1));
+		 color += kernel[i][j] * texture(sampler, texcoord + offset);
+	  }
+   }
+
+   return color;
+}

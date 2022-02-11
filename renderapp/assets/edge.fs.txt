@@ -1,0 +1,17 @@
+// image.fs.txt
+
+uniform sampler2D	u_diffuse;
+uniform mat3		u_vkernel;
+uniform mat3		u_hkernel;
+uniform vec2		u_resolution;
+
+in vec2 f_texcoord;
+
+out vec4 frag_color;
+
+void main() {
+   vec4 cv = applyKernel(u_vkernel, u_diffuse, u_resolution, f_texcoord);
+   vec4 ch = applyKernel(u_hkernel, u_diffuse, u_resolution, f_texcoord);
+   vec4 color = sqrt((cv * cv) + (ch * ch));
+   frag_color = vec4(color.r, color.g, color.b, 1.0f);
+}

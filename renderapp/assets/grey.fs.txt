@@ -1,0 +1,16 @@
+// image.fs.txt
+
+#version 330
+
+uniform sampler2D	u_diffuse;
+uniform vec2		u_resolution;
+
+in vec2 f_texcoord;
+
+out vec4 frag_color;
+
+void main() {
+   vec4 color = texture(u_diffuse, f_texcoord);
+   float grey = (color.r + color.g + color.b) / 3.0f;
+   frag_color = vec4(grey, grey, grey, color.a);
+}
